@@ -1,0 +1,39 @@
+body {
+    background-image: url('images/wallaper.jpg');
+}
+
+.button {
+    border-width: 0px;
+    margin-left: 40px;
+    margin-top: 5%;
+    width: 200px;
+    height: 300px;
+    cursor: pointer;
+    background-size: cover;
+    transition: all 0.5s ease-in-out;
+}
+
+.button:hover {
+    width: 300px;
+    height: 400px;
+}
+
+#button-easy {
+    background-image: url('images/buttons/easy.png');
+}
+
+#button-easy {
+    background-image: url('images/buttons/easy.png');
+}
+
+#button-medium {
+    background-image: url('images/buttons/medium.png');
+}
+
+#button-hard {
+    background-image: url('images/buttons/hard.png');
+}
+
+#button-god {
+    background-image: url('images/buttons/god.png');
+}

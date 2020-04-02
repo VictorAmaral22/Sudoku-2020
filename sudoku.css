@@ -6,7 +6,7 @@ body {
 
 #table {
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 40px;
     position: flex;
     background-image: url('images/nazare-gif.gif');
     background-repeat: no-repeat;
@@ -17,14 +17,29 @@ td {
     border-style: solid;
     border-color: transparent;
     border-collapse: collapse;
-    height: 10px;
-    width: 30px;
-    font-size: 15pt;
     align-content: center;
     text-align: center;
     padding: 0.5em;
     color: white;
     transition: all 0.5s ease-in-out;
+}
+
+.small>tr>td {
+    height: 50px;
+    width: 60px;
+    font-size: 20pt;
+}
+
+.medium>tr>td {
+    height: 40px;
+    width: 55px;
+    font-size: 15pt;
+}
+
+.big>tr>td {
+    height: 10px;
+    width: 30px;
+    font-size: 13pt;
 }
 
 td:hover {

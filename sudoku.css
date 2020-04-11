@@ -9,7 +9,6 @@ body {
     margin-top: 40px;
     position: flex;
     background-image: url('images/nazare-gif.gif');
-    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -31,9 +30,10 @@ td {
 }
 
 .medium>tr>td {
-    height: 40px;
-    width: 55px;
-    font-size: 15pt;
+    height: 50px;
+    width: 65px;
+    font-size: 20;
+    padding: 0.2em;
 }
 
 .big>tr>td {

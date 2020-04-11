@@ -46,14 +46,17 @@ for (let c = 1; c <= tamSudoku; c++) {
 
 /*             CLEAN                                   */
 function clean(num) {
+    //clean all
     if (num == 1) {
         for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
             for (let c1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')'); c1++) {
                 document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').textContent = '+';
                 document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').classList.remove('fixo');
+                document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').classList.remove('wrong');
             }
         }
     }
+    //retry
     if (num == 2) {
         for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
             for (let c1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')'); c1++) {
@@ -105,138 +108,101 @@ for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
 
 function check(mode) {
     var incorrect = 0;
-
-    if (mode != 1) {
-        //HORIZONTAL
-        for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
-            for (let tdC = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC + ')'); tdC++) {
-                for (let tdC1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')'); tdC1++) {
-                    if (tdC != tdC1 && document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC + ')').textContent == document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')').textContent) {
-                        let a = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC + ')');
-                        let b = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')');
-                        if (a.classList != 'fixo') {
-                            a.setAttribute('class', 'wrong');
-                        }
-                        if (b.classList != 'fixo') {
-                            b.setAttribute('class', 'wrong');
-                        }
-                        incorrect++;
+    //HORIZONTAL
+    for (let rowNum = 1; document.querySelector('tr:nth-of-type(' + rowNum + ')'); rowNum++) {
+        for (let dataNum = 1; document.querySelector('tr:nth-of-type(' + rowNum + ')>td:nth-of-type(' + dataNum + ')'); dataNum++) {
+            for (let dataNum2 = 1; document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum2 + ')'); dataNum2++) {
+                if (dataNum != dataNum2 && document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum + ')').textContent == document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum2 + ')').textContent) {
+                    if (document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum + ')').classList != 'fixo') {
+                        document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum + ')').setAttribute('class', 'wrong');
                     }
-                }
-
-            }
-        }
-
-        //VERTICAL
-        for (let vrow = 1, hdata = 1; document.querySelector('tr:nth-of-type(' + vrow + ') > td:nth-of-type(' + hdata + ')'); hdata++) {
-            for (let vrow2 = 1; document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')'); vrow2++) {
-                for (let vrow3 = 1; document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')'); vrow3++) {
-                    if (vrow2 != vrow3 && document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')').textContent == document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')').textContent) {
-                        let a = document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')');
-                        let b = document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')');
-                        if (a.classList != 'fixo') {
-                            a.setAttribute('class', 'wrong');
-                        }
-                        if (b.classList != 'fixo') {
-                            b.setAttribute('class', 'wrong');
-                        }
-                        incorrect++;
+                    if (document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum2 + ')').classList != 'fixo') {
+                        document.querySelector('tr:nth-of-type(' + rowNum + ') > td:nth-of-type(' + dataNum2 + ')').setAttribute('class', 'wrong');
                     }
+                    incorrect++;
                 }
             }
-        }
-        if (incorrect === 0) {
-            alert('Você ganhou!');
-        } else {
-            alert('Você perdeu...');
+
         }
     }
 
-    if (mode == 1) {
-        //HORIZONTAL
-        for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
-            for (let tdC = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC + ')'); tdC++) {
-                for (let tdC1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')'); tdC1++) {
-                    if (tdC != tdC1 && document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC + ')').textContent == document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')').textContent && document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')').textContent != '+') {
-                        let a = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC + ')');
-                        let b = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + tdC1 + ')');
-                        if (a.classList != 'fixo') {
-                            a.setAttribute('class', 'wrong');
-                        }
-                        if (b.classList != 'fixo') {
-                            b.setAttribute('class', 'wrong');
-                        }
-                        incorrect++;
+    //VERTICAL
+    for (let vrow = 1, hdata = 1; document.querySelector('tr:nth-of-type(' + vrow + ') > td:nth-of-type(' + hdata + ')'); hdata++) {
+        for (let vrow2 = 1; document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')'); vrow2++) {
+            for (let vrow3 = 1; document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')'); vrow3++) {
+                if (vrow2 != vrow3 && document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')').textContent == document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')').textContent) {
+                    if (document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')').classList != 'fixo') {
+                        document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')').setAttribute('class', 'wrong');
                     }
-                }
-
-            }
-        }
-
-        //VERTICAL
-        for (let vrow = 1, hdata = 1; document.querySelector('tr:nth-of-type(' + vrow + ') > td:nth-of-type(' + hdata + ')'); hdata++) {
-            for (let vrow2 = 1; document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')'); vrow2++) {
-                for (let vrow3 = 1; document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')'); vrow3++) {
-                    if (vrow2 != vrow3 && document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')').textContent == document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')').textContent && document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')').textContent != '+') {
-                        let a = document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')');
-                        let b = document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')');
-                        if (a.classList != 'fixo') {
-                            a.setAttribute('class', 'wrong');
-                        }
-                        if (b.classList != 'fixo') {
-                            b.setAttribute('class', 'wrong');
-                        }
-                        incorrect++;
+                    if (document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')').classList != 'fixo') {
+                        document.querySelector('tr:nth-of-type(' + vrow3 + ') > td:nth-of-type(' + hdata + ')').setAttribute('class', 'wrong');
                     }
+                    incorrect++;
                 }
             }
         }
-        if (incorrect === 0) {
-            return 0;
-        } else {
-            return 1;
-        }
+    }
+    if (incorrect === 0) {
+        alert('Você ganhou!');
+    } else {
+        alert('Você perdeu...');
     }
 }
 
 /*                  GAME MODES                      */
 function game(e) {
     clean(1);
-    let numValores = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 4);
-    let dataBank = [];
+    let numValores = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 6);
     //bug por aqui.
     //repete números
-    for (let posit = 0; posit < numValores; posit++) {
+    //console.log('');
+    let posit = 0;
+    let invalid = 0;
+    while (posit < numValores) {
         let randomNum = [
-            (parseInt(Math.random() * tamSudoku) + 1),
             (parseInt(Math.random() * tamSudoku) + 1),
             (parseInt(Math.random() * tamSudoku) + 1)
         ];
-        dataBank[posit] = randomNum;
-        for (let c = 0; c < dataBank.length; c++) {
-            if (posit != c && dataBank[c][0] == randomNum[0]) {
-                while (dataBank[c][1] == randomNum[1]) {
-                    randomNum[1] = (parseInt(Math.random() * tamSudoku) + 1);
-                    dataBank[posit] = randomNum;
-                }
-                while (dataBank[c][2] == randomNum[2]) {
-                    randomNum[2] = (parseInt(Math.random() * tamSudoku) + 1);
-                    dataBank[posit] = randomNum;
+        while (document.querySelector('tr:nth-of-type(' + randomNum[0] + ') > td:nth-of-type(' + randomNum[1] + ')').classList == 'fixo') {
+            console.log('repetiu lugar');
+            randomNum[0] = (parseInt(Math.random() * tamSudoku) + 1);
+            randomNum[1] = (parseInt(Math.random() * tamSudoku) + 1);
+        }
+        let problem = 0;
+        let contador = 0;
+        while (problem != 2 || contador == 3) {
+            console.log('valo igual');
+            problem = 0;
+            randomNum[2] = (parseInt(Math.random() * tamSudoku) + 1);
+            contador++;
+            //na mesma coluna
+            for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')') && problem != 1; c++) {
+                if (c != randomNum[0] && document.querySelector('tr:nth-of-type(' + c + ')>td:nth-of-type(' + randomNum[1] + ')').textContent == randomNum[2]) {
+                    console.log('igual na mesma coluna');
+                    problem = 1;
                 }
             }
-            if (posit != c && dataBank[c][1] == randomNum[1]) {
-                while (dataBank[c][0] == randomNum[0]) {
-                    randomNum[0] = (parseInt(Math.random() * tamSudoku) + 1);
-                    dataBank[posit] = randomNum;
+            //na mesma row
+            for (let c = 1; document.querySelector('tr:nth-of-type(' + randomNum[0] + ')>td:nth-of-type(' + c + ')') && problem != 1; c++) {
+                if (c != randomNum[1] && document.querySelector('tr:nth-of-type(' + randomNum[0] + ')>td:nth-of-type(' + c + ')').textContent == randomNum[2]) {
+                    console.log('igual na mesma row');
+                    problem = 1;
                 }
-                while (dataBank[c][2] == randomNum[2]) {
-                    randomNum[2] = (parseInt(Math.random() * tamSudoku) + 1);
-                    dataBank[posit] = randomNum;
-                }
+            }
+            if (problem != 1) {
+                console.log('foi');
+                document.querySelector('tr:nth-of-type(' + randomNum[0] + ') > td:nth-of-type(' + randomNum[1] + ')').textContent = randomNum[2];
+                document.querySelector('tr:nth-of-type(' + randomNum[0] + ') > td:nth-of-type(' + randomNum[1] + ')').classList.add('fixo');
+                posit++
+                problem = 2;
+            }
+            if (contador == 3) {
+                console.log('ultrapassou limite');
+                clean(1);
+                posit = 0;
             }
         }
-        document.querySelector('tr:nth-of-type(' + randomNum[0] + ') > td:nth-of-type(' + randomNum[1] + ')').textContent = randomNum[2];
-        document.querySelector('tr:nth-of-type(' + randomNum[0] + ') > td:nth-of-type(' + randomNum[1] + ')').classList.add('fixo');
+
     }
 }
 

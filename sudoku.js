@@ -13,17 +13,61 @@ if (tamSudoku > 6 && tamSudoku <= 9 || tamSudoku > 9) {
     document.getElementById('table').className = 'big';
 }
 
-
 /*             SETTING BUTTONS                                   */
-const buttonEASY = document.querySelector('a:nth-of-type(1)');
-buttonEASY.addEventListener('click', game);
+const div = document.getElementById('div-top');
 
-const buttonCHECK = document.querySelector('a:nth-of-type(3)');
+// Problems here
+const buttonPlay = document.getElementById('play');
+buttonPlay.addEventListener('click', game);
+
+const buttonCHECK = document.getElementById('check');
 buttonCHECK.addEventListener('click', check);
 
-const buttonRETRY = document.querySelector('a:nth-of-type(4)');
+const buttonRETRY = document.getElementById('retry');
 buttonRETRY.addEventListener('click', function(e) {
     clean(2);
+});
+
+const buttonDIF = document.getElementById('dif');
+buttonDIF.addEventListener('click', function(e){
+    document.getElementById('div-dif').style.display = 'flex';
+    document.getElementById('div-top').style.display = 'none';
+    document.getElementById('div-table').style.display = 'none';
+});
+
+/*              DIFFICULTIES                    */
+//Problems here
+var numValores = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+const buttonE = document.getElementById('button-easy');
+buttonE.addEventListener('click', function(e){
+    document.getElementById('div-dif').style.display = 'none';
+    document.getElementById('div-top').style.display = 'flex';
+    document.getElementById('div-table').style.display = 'flex';
+    game(32);
+});
+const buttonM = document.getElementById('button-medium');
+buttonM.addEventListener('click', function(e){
+    document.getElementById('div-dif').style.display = 'none';
+    document.getElementById('div-top').style.display = 'flex';
+    document.getElementById('div-table').style.display = 'flex';
+    game(31);
+
+});
+const buttonH = document.getElementById('button-hard');
+buttonH.addEventListener('click', function(e){
+    document.getElementById('div-dif').style.display = 'none';
+    document.getElementById('div-top').style.display = 'flex';
+    document.getElementById('div-table').style.display = 'flex';
+    game(31);
+
+});
+const buttonG = document.getElementById('button-god');
+buttonG.addEventListener('click', function(e){
+    document.getElementById('div-dif').style.display = 'none';
+    document.getElementById('div-top').style.display = 'flex';
+    document.getElementById('div-table').style.display = 'flex';
+    game(31);
+
 });
 
 /*             CREATING THE TR AND TD                 */
@@ -109,6 +153,7 @@ for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
 /*             CHECK                      */
 function check(mode) {
     var incorrect = 0;
+
     //HORIZONTAL
     for (let rowNum = 1; document.querySelector('tr:nth-of-type(' + rowNum + ')'); rowNum++) {
         for (let dataNum = 1; document.querySelector('tr:nth-of-type(' + rowNum + ')>td:nth-of-type(' + dataNum + ')'); dataNum++) {
@@ -123,10 +168,9 @@ function check(mode) {
                     incorrect++;
                 }
             }
-
         }
     }
-
+    
     //VERTICAL
     for (let vrow = 1, hdata = 1; document.querySelector('tr:nth-of-type(' + vrow + ') > td:nth-of-type(' + hdata + ')'); hdata++) {
         for (let vrow2 = 1; document.querySelector('tr:nth-of-type(' + vrow2 + ') > td:nth-of-type(' + hdata + ')'); vrow2++) {
@@ -144,7 +188,7 @@ function check(mode) {
         }
     }
 
-    //GRID - NOT WORKING PROPERLY
+    //GRID
 
     // 1 - 3 => VERTICAL
     if(true){
@@ -152,17 +196,18 @@ function check(mode) {
         let armGrid = [];
         for(let c = 1; c <= 3; c++){
             for(let c1 = 1;c1 <= 3; c1++){
-                armGrid[armGrid.length] = [document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')'),c,c1];
+                armGrid[armGrid.length] = [document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').textContent,c,c1];
             }
         }
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0] && armGrid[c1][0] != '+'){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -180,11 +225,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -202,11 +248,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -226,11 +273,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -248,11 +296,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -270,11 +319,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -294,11 +344,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -316,11 +367,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -338,11 +390,12 @@ function check(mode) {
         for(let c = 0;c < armGrid.length;c++){
             for(let c1 = 0;c1 < armGrid.length;c1++){
                 if(c != c1 && armGrid[c][0] == armGrid[c1][0]){
+                    //console.log('Onde c é '+c+' '+armGrid[c][0]+' - Onde c1 é '+c1+' '+armGrid[c1][0]);
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').classList != 'fixo') {
                         document.querySelector('tr:nth-of-type(' + armGrid[c][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
                     }
                     if (document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').classList != 'fixo') {
-                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c][2] + ')').setAttribute('class', 'wrong');
+                        document.querySelector('tr:nth-of-type(' + armGrid[c1][1] + ') > td:nth-of-type(' + armGrid[c1][2] + ')').setAttribute('class', 'wrong');
                     }
                     incorrect++;
                 }
@@ -369,7 +422,7 @@ function colRowCheck(numValores, posit) {
         }
         let problem = 0;
         let contador = 0;
-        while (problem != 2 && contador != 50) {
+        while (problem != 2 && contador != 25) {
             problem = 0;
             randomNum[2] = (parseInt(Math.random() * tamSudoku) + 1);
             contador++;
@@ -510,14 +563,8 @@ function colRowCheck(numValores, posit) {
 }
 
 /*                  GAME MODES                      */
-function game(e) {
+function game(numValores) {
     clean(1);
-    var numValores = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
-    //bug por aqui.
-    //repete números
     var posit = 0;
-    var tries = 0;//vai ter que contar a cada tentativa
     colRowCheck(numValores, posit);
 }
-
-game();

@@ -8,8 +8,8 @@ body {
     margin: 0 auto;
     margin-top: 40px;
     position: flex;
-    background-image: url('images/nazare-gif.gif');
-    background-size: cover;
+    display: block;
+    background-color: #171717;
 }
 
 td {
@@ -85,5 +85,44 @@ td.fixo {
 }
 
 #div-top {
-    display: flex;
+    display: none;
+}
+#div-table {
+    display: none;
+}
+
+.button {
+    border-width: 0px;
+    margin-left: 40px;
+    margin-top: 5%;
+    width: 200pt;
+    height: 270pt;
+    cursor: pointer;
+    background-size: cover;
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    width: 250pt;
+    height: 280pt;
+}
+
+#button-easy {
+    background-image: url('images/buttons/easy.png');
+}
+
+#button-easy {
+    background-image: url('images/buttons/easy.png');
+}
+
+#button-medium {
+    background-image: url('images/buttons/medium.png');
+}
+
+#button-hard {
+    background-image: url('images/buttons/hard.png');
+}
+
+#button-god {
+    background-image: url('images/buttons/god.png');
 }

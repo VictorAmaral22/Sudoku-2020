@@ -5,20 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Sudoku</title>
     <link rel="stylesheet" href="sudoku.css">
 </head>
 
 <body>
 
-    <div></div>
-    <table id="table"></table>
+    <div id="div-dif">
+        <a>
+            <button class="button" id="button-easy"></button>
+        </a>
+        <a>
+            <button class="button" id="button-medium"></button>
+        </a>
+        <a>
+            <button class="button" id="button-hard"></button>
+        </a>
+        <a>
+            <button class="button" id="button-god"></button>
+        </a>
+    </div>
 
+    <div id="div-table">
+        <table id="table"></table>
+    </div>
     <div id="div-top">
-        <a class="button-sudoku">PLAY AGAIN</a>
-        <a href="index.html" class="button-sudoku">difficulties</a>
-        <a class="button-sudoku">CHECK</a>
-        <a class="button-sudoku">RETRY</a>
+        <a class="button-sudoku" id="play">PLAY AGAIN</a>
+        <a class="button-sudoku" id="dif">difficulties</a>
+        <a class="button-sudoku" id="check">CHECK</a>
+        <a class="button-sudoku" id="retry">RETRY</a>
     </div>
 
     <script src="sudoku.js"></script>

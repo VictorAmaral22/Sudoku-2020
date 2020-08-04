@@ -1,6 +1,6 @@
 body {
     background-image: url('images/wallaper.jpg');
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
 }
 
@@ -57,6 +57,32 @@ td.fixo {
     color: white;
 }
 
+#button-back {
+    position: flex;
+    display: block;
+    width: 200px;
+    margin-left: 0 auto;
+    margin-top: 3%;
+    padding: 0px;
+    color: #f3f3f3;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    line-height: 50px;
+    border: 2px solid #171717;
+    background-color: #5E6558;
+    background-image: linear-gradient(to right, #171717 50%, transparent 50%);
+    background-position: 100% 0%;
+    background-size: 200% 100%;
+    transition: 0.5s;
+}
+#button-back:hover {
+    color: #5E6558;
+    background-position: 0% 50%;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}
+
 .button-sudoku {
     position: flex;
     display: block;
@@ -110,19 +136,27 @@ td.fixo {
 #button-easy {
     background-image: url('images/buttons/easy.png');
 }
-
-#button-easy {
-    background-image: url('images/buttons/easy.png');
+#button-easy:hover {
+    background-image: url('images/buttons/easy-2.png');
 }
 
 #button-medium {
     background-image: url('images/buttons/medium.png');
 }
+#button-medium:hover {
+    background-image: url('images/buttons/medium-2.png');
+}
 
 #button-hard {
     background-image: url('images/buttons/hard.png');
 }
+#button-hard:hover {
+    background-image: url('images/buttons/hard-2.png');
+}
 
 #button-god {
     background-image: url('images/buttons/god.png');
+}
+#button-god:hover {
+    background-image: url('images/buttons/god-2.png');
 }

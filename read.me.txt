@@ -1,2 +1,2 @@
-Tá praticamente tudo feito. Falta uma página inicial com as opções JOGAR, TUTORIAL, CRÉDITOS. 
-Talvez eu coloque uma opção idioma, mas n sei como fazer isso ainda.
+This project is ynder development...
+It is a sudoku game, it's supposed to be funny, I hope you enjoy it!

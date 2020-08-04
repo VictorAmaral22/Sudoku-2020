@@ -1,18 +1,5 @@
 clean(1);
 
-let z = 0;
-let counter = 0;
-var tamSudoku = 9;
-if (tamSudoku <= 4) {
-    document.getElementById('table').className = 'small';
-}
-if (tamSudoku > 4 && tamSudoku <= 6) {
-    document.getElementById('table').className = 'medium';
-}
-if (tamSudoku > 6 && tamSudoku <= 9 || tamSudoku > 9) {
-    document.getElementById('table').className = 'big';
-}
-
 /*             SETTING BUTTONS                                   */
 const div = document.getElementById('div-top');
 
@@ -37,20 +24,39 @@ buttonDIF.addEventListener('click', function(e){
 
 /*              DIFFICULTIES                    */
 //Problems here
-var numValores = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
 const buttonE = document.getElementById('button-easy');
 buttonE.addEventListener('click', function(e){
     document.getElementById('div-dif').style.display = 'none';
     document.getElementById('div-top').style.display = 'flex';
     document.getElementById('div-table').style.display = 'flex';
-    game(32);
+    var tamSudoku = 6;
+    var div = document.getElementById('div-table');
+    var table = document.getElementById('table');
+    div.removeChild(table);
+    table = document.createElement('table');
+    table.setAttribute('id', 'table');
+    div.appendChild(table);
+    createTable(tamSudoku);
+    eventListeners(tamSudoku)
+    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+    game(num, tamSudoku);
 });
 const buttonM = document.getElementById('button-medium');
 buttonM.addEventListener('click', function(e){
     document.getElementById('div-dif').style.display = 'none';
     document.getElementById('div-top').style.display = 'flex';
     document.getElementById('div-table').style.display = 'flex';
-    game(31);
+    var tamSudoku = 6;
+    var div = document.getElementById('div-table');
+    var table = document.getElementById('table');
+    div.removeChild(table);
+    table = document.createElement('table');
+    table.setAttribute('id', 'table');
+    div.appendChild(table);
+    createTable(tamSudoku);
+    eventListeners(tamSudoku)
+    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+    game(num, tamSudoku);
 
 });
 const buttonH = document.getElementById('button-hard');
@@ -58,7 +64,17 @@ buttonH.addEventListener('click', function(e){
     document.getElementById('div-dif').style.display = 'none';
     document.getElementById('div-top').style.display = 'flex';
     document.getElementById('div-table').style.display = 'flex';
-    game(31);
+    var tamSudoku = 9;
+    var div = document.getElementById('div-table');
+    var table = document.getElementById('table');
+    div.removeChild(table);
+    table = document.createElement('table');
+    table.setAttribute('id', 'table');
+    div.appendChild(table);
+    createTable(tamSudoku);
+    eventListeners(tamSudoku)
+    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+    game(num, tamSudoku);
 
 });
 const buttonG = document.getElementById('button-god');
@@ -66,25 +82,46 @@ buttonG.addEventListener('click', function(e){
     document.getElementById('div-dif').style.display = 'none';
     document.getElementById('div-top').style.display = 'flex';
     document.getElementById('div-table').style.display = 'flex';
-    game(31);
+    var tamSudoku = 6;
+    var div = document.getElementById('div-table');
+    var table = document.getElementById('table');
+    div.removeChild(table);
+    table = document.createElement('table');
+    table.setAttribute('id', 'table');
+    div.appendChild(table);
+    createTable(tamSudoku);
+    eventListeners(tamSudoku)
+    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+    game(num, tamSudoku);
 
 });
 
 /*             CREATING THE TR AND TD                 */
-var table = document.getElementById('table');
-for (let c = 1; c <= tamSudoku; c++) {
-    var tr = document.createElement('tr');
-    table.appendChild(tr);
-    for (let c1 = 1; c1 <= tamSudoku; c1++) {
-        var td = document.createElement('td');
-        tr.appendChild(td);
-        let local = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')');
-        local.addEventListener('mouseover', function(event) {
-            local.setAttribute('id', 'viewed');
-        });
-        local.addEventListener('mouseout', function(event) {
-            local.removeAttribute('id');
-        });
+function createTable(tamSudoku) {
+    if (tamSudoku <= 4) {
+        document.getElementById('table').className = 'small';
+    }
+    if (tamSudoku > 4 && tamSudoku <= 6) {
+        document.getElementById('table').className = 'medium';
+    }
+    if (tamSudoku > 6 && tamSudoku <= 9 || tamSudoku > 9) {
+        document.getElementById('table').className = 'big';
+    }
+    var table = document.getElementById('table');
+    for (let c = 1; c <= tamSudoku; c++) {
+        var tr = document.createElement('tr');
+        table.appendChild(tr);
+        for (let c1 = 1; c1 <= tamSudoku; c1++) {
+            var td = document.createElement('td');
+            tr.appendChild(td);
+            let local = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')');
+            local.addEventListener('mouseover', function(event) {
+                local.setAttribute('id', 'viewed');
+            });
+            local.addEventListener('mouseout', function(event) {
+                local.removeAttribute('id');
+            });
+        }
     }
 }
 
@@ -114,40 +151,41 @@ function clean(num) {
 }
 
 /*             SETTING EVENT LISTENERS                      */
-for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
-    for (let c1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')'); c1++) {
-        let local = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')');
-        local.addEventListener('wheel', function(e) {
-            var y = e.deltaY;
-            if (document.getElementById('viewed').className != 'fixo') {
-                if (y < 0) {
+function eventListeners(tamSudoku) {
+    let z = 0;
+    for (let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++) {
+        for (let c1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')'); c1++) {
+            let local = document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')');
+            local.addEventListener('wheel', function(e) {
+                var y = e.deltaY;
+                if (document.getElementById('viewed').className != 'fixo') {
+                    if (y < 0) {
+                     z = z + 1;
+                        if (z >= (tamSudoku + 1)) {
+                            z = 1;
+                        }
+                    }
+                    if (y > 0) {
+                        z = z - 1;
+                        if (z <= 0) {
+                            z = tamSudoku;
+                        }
+                    }
+                    document.getElementById('viewed').textContent = z;
+                }
+            });
+
+            local.addEventListener('click', function(e) {
+                if (document.getElementById('viewed').className != 'fixo') {
                     z = z + 1;
                     if (z >= (tamSudoku + 1)) {
                         z = 1;
                     }
+                    document.getElementById('viewed').textContent = z;
                 }
-                if (y > 0) {
-                    z = z - 1;
-                    if (z <= 0) {
-                        z = tamSudoku;
-                    }
-                }
-                document.getElementById('viewed').textContent = z;
-            }
-
-        });
-
-        local.addEventListener('click', function(e) {
-            if (document.getElementById('viewed').className != 'fixo') {
-                z = z + 1;
-                if (z >= (tamSudoku + 1)) {
-                    z = 1;
-                }
-                document.getElementById('viewed').textContent = z;
-            }
-
-        });
-    }
+            });
+        }
+    }  
 }
 
 /*             CHECK                      */
@@ -190,8 +228,9 @@ function check(mode) {
 
     //GRID
 
-    // 1 - 3 => VERTICAL
-    if(true){
+    if( document.querySelector('tr:nth-of-type(7)') ){
+        // 1 - 3 => VERTICAL
+        if(true){
         // 1 - 3 => HORIZONTAL
         let armGrid = [];
         for(let c = 1; c <= 3; c++){
@@ -213,8 +252,8 @@ function check(mode) {
                 }
             }        
         }
-    }
-    if(true){
+        }
+        if(true){
         // 4 - 6 => HORIZONTAL
         let armGrid = [];
         for(let c = 1; c <= 3; c++){
@@ -236,8 +275,8 @@ function check(mode) {
                 }
             }        
         }
-    }
-    if(true){
+        }
+        if(true){
         // 7 - 9 => HORIZONTAL
         let armGrid = [];
         for(let c = 1; c <= 3; c++){
@@ -259,10 +298,10 @@ function check(mode) {
                 }
             }        
         }
-    }
+        }
 
-    // 4 - 6 => VERTICAL
-    if(true){
+        // 4 - 6 => VERTICAL
+        if(true){
         // 1 - 3 => HORIZONTAL
         let armGrid = [];
         for(let c = 4; c <= 6; c++){
@@ -284,8 +323,8 @@ function check(mode) {
                 }
             }        
         }
-    }
-    if(true){
+        }
+        if(true){
         // 4 - 6 => HORIZONTAL
         let armGrid = [];
         for(let c = 4; c <= 6; c++){
@@ -307,8 +346,8 @@ function check(mode) {
                 }
             }        
         }
-    }
-    if(true){
+        }
+        if(true){
         // 7 - 9 => HORIZONTAL
         let armGrid = [];
         for(let c = 4; c <= 6; c++){
@@ -330,10 +369,10 @@ function check(mode) {
                 }
             }        
         }
-    }
+        }
 
-    // 7 - 9 => VERTICAL
-    if(true){
+        // 7 - 9 => VERTICAL
+        if(true){
         // 1 - 3 => HORIZONTAL
         let armGrid = [];
         for(let c = 7; c <= 9; c++){
@@ -355,8 +394,8 @@ function check(mode) {
                 }
             }        
         }
-    }
-    if(true){
+        }
+        if(true){
         // 4 - 6 => HORIZONTAL
         let armGrid = [];
         for(let c = 7; c <= 9; c++){
@@ -378,8 +417,8 @@ function check(mode) {
                 }
             }        
         }
-    }
-    if(true){
+        }
+        if(true){
         // 7 - 9 => HORIZONTAL
         let armGrid = [];
         for(let c = 7; c <= 9; c++){
@@ -400,6 +439,7 @@ function check(mode) {
                     incorrect++;
                 }
             }        
+        }
         }
     }
 
@@ -410,7 +450,7 @@ function check(mode) {
     }
 }
 
-function colRowCheck(numValores, posit) {
+function colRowCheck(numValores, posit, tamSudoku) {
     while (posit < numValores) {
         let randomNum = [
             (parseInt(Math.random() * tamSudoku) + 1),
@@ -563,8 +603,8 @@ function colRowCheck(numValores, posit) {
 }
 
 /*                  GAME MODES                      */
-function game(numValores) {
+function game(numValores, tamSudoku) {
     clean(1);
     var posit = 0;
-    colRowCheck(numValores, posit);
+    colRowCheck(numValores, posit, tamSudoku);
 }

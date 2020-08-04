@@ -3,10 +3,6 @@ clean(1);
 /*             SETTING BUTTONS                                   */
 const div = document.getElementById('div-top');
 
-// Problems here
-const buttonPlay = document.getElementById('play');
-buttonPlay.addEventListener('click', game);
-
 const buttonCHECK = document.getElementById('check');
 buttonCHECK.addEventListener('click', check);
 
@@ -23,7 +19,6 @@ buttonDIF.addEventListener('click', function(e){
 });
 
 /*              DIFFICULTIES                    */
-//Problems here
 const buttonE = document.getElementById('button-easy');
 buttonE.addEventListener('click', function(e){
     document.getElementById('div-dif').style.display = 'none';
@@ -40,6 +35,12 @@ buttonE.addEventListener('click', function(e){
     eventListeners(tamSudoku)
     var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
     game(num, tamSudoku);
+    var buttonPlay = document.getElementById('play');
+    buttonPlay.addEventListener('click', function(num, tamSudoku) {
+        var tamSudoku = 6;
+        var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+        game(num, tamSudoku);        
+    });
 });
 const buttonM = document.getElementById('button-medium');
 buttonM.addEventListener('click', function(e){
@@ -55,9 +56,14 @@ buttonM.addEventListener('click', function(e){
     div.appendChild(table);
     createTable(tamSudoku);
     eventListeners(tamSudoku)
-    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 6);
     game(num, tamSudoku);
-
+    var buttonPlay = document.getElementById('play');
+    buttonPlay.addEventListener('click', function(num, tamSudoku) {
+        var tamSudoku = 6;
+        var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 6);
+        game(num, tamSudoku);        
+    });
 });
 const buttonH = document.getElementById('button-hard');
 buttonH.addEventListener('click', function(e){
@@ -75,14 +81,19 @@ buttonH.addEventListener('click', function(e){
     eventListeners(tamSudoku)
     var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
     game(num, tamSudoku);
-
+    var buttonPlay = document.getElementById('play');
+    buttonPlay.addEventListener('click', function(num, tamSudoku) {
+        var tamSudoku = 9;
+        var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+        game(num, tamSudoku);        
+    });
 });
 const buttonG = document.getElementById('button-god');
 buttonG.addEventListener('click', function(e){
     document.getElementById('div-dif').style.display = 'none';
     document.getElementById('div-top').style.display = 'flex';
     document.getElementById('div-table').style.display = 'flex';
-    var tamSudoku = 6;
+    var tamSudoku = 9;
     var div = document.getElementById('div-table');
     var table = document.getElementById('table');
     div.removeChild(table);
@@ -91,9 +102,14 @@ buttonG.addEventListener('click', function(e){
     div.appendChild(table);
     createTable(tamSudoku);
     eventListeners(tamSudoku)
-    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 9);
+    var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 6);
     game(num, tamSudoku);
-
+    var buttonPlay = document.getElementById('play');
+    buttonPlay.addEventListener('click', function(num, tamSudoku) {
+        var tamSudoku = 9;
+        var num = parseInt((tamSudoku ** 2) / 2) - parseInt((tamSudoku ** 2) / 6);
+        game(num, tamSudoku);        
+    });
 });
 
 /*             CREATING THE TR AND TD                 */
@@ -227,7 +243,6 @@ function check(mode) {
     }
 
     //GRID
-
     if( document.querySelector('tr:nth-of-type(7)') ){
         // 1 - 3 => VERTICAL
         if(true){
@@ -442,6 +457,22 @@ function check(mode) {
         }
         }
     }
+
+    //EMPTY
+    for(let c = 1; document.querySelector('tr:nth-of-type(' + c + ')'); c++){
+        console.log('Checking if empty');
+        for(let c1 = 1; document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')'); c1++){
+            if(document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').innerHTML == '+'){
+                console.log('empty');
+                if (document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').classList != 'fixo') {
+                    document.querySelector('tr:nth-of-type(' + c + ') > td:nth-of-type(' + c1 + ')').setAttribute('class', 'wrong');
+                }
+                incorrect++;
+
+            }    
+        }
+    }
+
 
     if (incorrect === 0) {
         alert('Você ganhou!');

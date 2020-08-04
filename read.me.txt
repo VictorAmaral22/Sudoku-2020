@@ -1,0 +1,2 @@
+Tá praticamente tudo feito. Falta uma página inicial com as opções JOGAR, TUTORIAL, CRÉDITOS. 
+Talvez eu coloque uma opção idioma, mas n sei como fazer isso ainda.

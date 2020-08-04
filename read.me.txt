@@ -1,2 +1,5 @@
-This project is ynder development...
-It is a sudoku game, it's supposed to be funny, I hope you enjoy it!
+TO DO:
+
+- Tutorial
+- Credits
+- Options

@@ -1,0 +1,31 @@
+body {
+    background-image: url('images/credits.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#button-back {
+    position: flex;
+    display: block;
+    width: 200px;
+    margin-left: 0 auto;
+    margin-top: 3%;
+    padding: 0px;
+    color: #f3f3f3;
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    line-height: 50px;
+    border: 2px solid #171717;
+    background-color: #5E6558;
+    background-image: linear-gradient(to right, #171717 50%, transparent 50%);
+    background-position: 100% 0%;
+    background-size: 200% 100%;
+    transition: 0.5s;
+}
+#button-back:hover {
+    color: #5E6558;
+    background-position: 0% 50%;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+}

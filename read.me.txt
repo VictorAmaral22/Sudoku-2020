@@ -1,5 +1,3 @@
-TO DO:
-
-- Tutorial
-- Credits
-- Options
+Este é um jogo ainda em desenvolvimento...
+Sua parte visual está praticamente pronta, o único problema é que suas posições preenchidas acabam não sendo válidas.
+Se tiver uma ideia para contribuir com o projeto, por favor entrar em contato.
